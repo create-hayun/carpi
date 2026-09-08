@@ -34,21 +34,23 @@ container.addEventListener('touchend', (e) => {
     autoPlay = setInterval(nextSlide, 3500);
 }, { passive: true });
 // Lógica para el menú interactivo en dispositivos móviles
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
+document.addEventListener('DOMContentLoaded', () => {
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
 
-if (navToggle && navLinks) {
-    // Abrir/Cerrar menú al hacer clic en la hamburguesa
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-
-    // Cerrar el menú automáticamente cuando se hace clic en cualquier enlace
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navLinks.classList.remove('active');
+    if (navToggle && navLinks) {
+        // Al dar clic en el botón de hamburguesa
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
         });
-    });
-}
+
+        // Al hacer clic en un enlace del menú, lo cerramos
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    }
+});
