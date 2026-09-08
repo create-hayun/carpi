@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #000;
+    overflow: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Contenedor principal a pantalla completa */
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: #111;
+    overflow: hidden;
+}
+
+/* Tarjetas por defecto (Miniaturas) */
+.container .slide .item {
+    width: 180px;
+    height: 260px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    border-radius: 20px;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+    background-position: center;
+    background-size: cover;
+    display: inline-block;
+    transition: all 0.5s ease-in-out;
+}
+
+/* --- ESTA ES LA PARTE CLAVE QUE FALTABA --- */
+/* Las dos primeras tarjetas deben expandirse al 100% de la pantalla para servir de fondo */
+.slide .item:nth-child(1),
+.slide .item:nth-child(2) {
+    top: 0 !important;
+    left: 0 !important;
+    transform: translate(0, 0) !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    box-shadow: none !important;
+}
+
+/* Posición de las miniaturas en pantallas de computadora */
+.slide .item:nth-child(3) { left: 50%; }
+.slide .item:nth-child(4) { left: calc(50% + 200px); }
+.slide .item:nth-child(5) { left: calc(50% + 400px); }
+
+.slide .item:nth-child(n + 6) {
+    left: calc(50% + 600px);
+    opacity: 0;
+}
+
+/* Estilos para el texto de la tarjeta activa */
+.item .content {
+    position: absolute;
+    top: 50%;
+    left: 80px;
+    width: 350px;
+    max-width: 80%;
+    text-align: left;
+    color: #fff;
+    transform: translate(0, -50%);
+    display: none;
+    z-index: 10;
+}
+
+/* Mostrar texto unicamente en el elemento activo en pantalla completa */
+.slide .item:nth-child(2) .content {
+    display: block;
+}
+
+.content .name {
+    font-size: 50px;
+    text-transform: uppercase;
+    font-weight: 800;
+    line-height: 1;
+    opacity: 0;
+    animation: animate 0.8s ease-in-out forwards;
+}
+
+.content .des {
+    margin: 15px 0 25px;
+    font-size: 15px;
+    opacity: 0;
+    animation: animate 0.8s ease-in-out 0.2s forwards;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.content button {
+    padding: 12px 25px;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    font-size: 14px;
+    opacity: 0;
+    animation: animate 0.8s ease-in-out 0.4s forwards;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+@keyframes animate {
+    from {
+        opacity: 0;
+        transform: translate(0, 50px);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+        filter: blur(0);
+    }
+}
+
+/* =========================================================
+   ADAPTACIÓN RESPONSIVA (CELULARES Y PANTALLAS PEQUEÑAS)
+   ========================================================= */
+@media screen and (max-width: 768px) {
+    .container .slide .item {
+        width: 110px;
+        height: 160px;
+    }
+
+    /* Acomodar miniaturas abajo en celular */
+    .slide .item:nth-child(3) { top: 75%; left: 20px; }
+    .slide .item:nth-child(4) { top: 75%; left: 140px; }
+    .slide .item:nth-child(5) { top: 75%; left: 260px; }
+    .slide .item:nth-child(n + 6) { top: 75%; left: 380px; opacity: 0; }
+
+    .item .content {
+        top: 30%;
+        left: 25px;
+        width: 85%;
+    }
+
+    .content .name { font-size: 32px; }
+    .content .des { font-size: 13px; }
+}
