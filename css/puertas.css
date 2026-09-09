@@ -1,10 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
 .catalog-header {
     text-align: center;
     padding: 40px 20px;
@@ -164,19 +157,24 @@
         font-size: 18px;
     }
 }
-/* Espacio superior para que el navbar no tape el texto "Nuestro Catálogo" */
+
 body {
+    background-color: #ffffff;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Relleno superior para que la barra fija no tape el título del catálogo */
     padding-top: 80px; 
 }
 
-/* NAVBAR BASE */
+/* =========================================================
+   BARRA DE NAVEGACIÓN
+   ========================================================= */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 70px;
-    background-color: #1a1a1a; /* Fondo oscuro sólido */
+    background-color: #1a1a1a;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -211,7 +209,7 @@ body {
     color: #ffffff;
 }
 
-/* BOTÓN HAMBURGUESA */
+/* Botón Hamburguesa */
 .nav-toggle {
     display: none;
     flex-direction: column;
@@ -231,7 +229,6 @@ body {
     border-radius: 4px;
     transition: all 0.3s ease;
 }
-
 /* MENÚ RESPONSIVO PARA MÓVILES */
 @media screen and (max-width: 768px) {
     .nav-toggle {
@@ -272,5 +269,56 @@ body {
     }
     .nav-toggle.active .bar:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
+    }
+}
+/* =========================================================
+   ADAPTACIÓN RESPONSIVA (CELULARES)
+   ========================================================= */
+@media screen and (max-width: 768px) {
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background-color: #1a1a1a !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 50px;
+        gap: 30px;
+        transition: right 0.4s ease-in-out;
+        z-index: 9999;
+    }
+
+    /* Menú desplegado */
+    .nav-links.active {
+        right: 0 !important;
+    }
+
+    .nav-links a {
+        font-size: 20px;
+    }
+
+    /* Animación del icono a 'X' */
+    .nav-toggle.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .nav-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .nav-toggle.active .bar:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+
+    .btn-wsp-cotizar {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 16px;
+        font-size: 13px;
     }
 }
