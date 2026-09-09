@@ -33,22 +33,33 @@ container.addEventListener('touchend', (e) => {
     // Reanudar desplazamiento automático
     autoPlay = setInterval(nextSlide, 3500);
 }, { passive: true });
-// Lógica para el menú interactivo en dispositivos móviles
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
+document.addEventListener('DOMContentLoaded', () => {
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
 
-if (navToggle && navLinks) {
-    // Abrir/Cerrar menú al hacer clic en la hamburguesa
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-
-    // Cerrar el menú automáticamente cuando se hace clic en cualquier enlace
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navLinks.classList.remove('active');
+    if (navToggle && navMenu) {
+        // Al hacer clic en el botón hamburguesa
+        navToggle.addEventListener('click', (event) => {
+            event.stopPropagation();
+            navToggle.classList.toggle('is-active');
+            navMenu.classList.toggle('is-active');
         });
-    });
-}
+
+        // Cerrar el menú si se hace clic fuera de la barra
+        document.addEventListener('click', (event) => {
+            if (!navMenu.contains(event.target) && !navToggle.contains(event.target)) {
+                navToggle.classList.remove('is-active');
+                navMenu.classList.remove('is-active');
+            }
+        });
+
+        // Cerrar el menú al hacer clic en el enlace
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('is-active');
+                navMenu.classList.remove('is-active');
+            });
+        });
+    }
+});
